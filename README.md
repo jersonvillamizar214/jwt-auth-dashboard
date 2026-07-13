@@ -1,5 +1,7 @@
 # JWT Auth Dashboard
 
+[![CI](https://github.com/jersonvillamizar214/jwt-auth-dashboard/actions/workflows/ci.yml/badge.svg)](https://github.com/jersonvillamizar214/jwt-auth-dashboard/actions/workflows/ci.yml)
+
 A full-stack authentication demo built with **Next.js** (App Router), where the frontend and backend live in a single project — deployable to Vercel with a Neon PostgreSQL database.
 
 > Part of my developer portfolio. Companion to [`rest-api-jwt-auth`](https://github.com/jersonvillamizar214/rest-api-jwt-auth) — the same auth system implemented as a standalone Express REST API.

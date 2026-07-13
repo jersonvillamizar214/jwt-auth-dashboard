@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  quality:
+    name: Lint & Build
+    runs-on: ubuntu-latest
+    # Placeholders: the build validates env at startup; real secrets live in Vercel.
+    env:
+      DATABASE_URL: postgresql://user:pass@localhost:5432/db
+      JWT_ACCESS_SECRET: ci_placeholder_secret_value
+      JWT_REFRESH_SECRET: ci_placeholder_secret_value
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Build (type-check included)
+        run: npm run build
+
+  docker:
+    name: Docker image
+    needs: quality
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Build image
+        run: docker build -t jwt-auth-dashboard:ci .
