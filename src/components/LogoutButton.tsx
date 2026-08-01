@@ -2,10 +2,14 @@
 
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useUi } from "./ui";
+import { T } from "@/lib/i18n";
 
 export default function LogoutButton() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
+  const { lang } = useUi();
+  const t = T[lang];
 
   async function handleLogout() {
     setLoading(true);
@@ -18,9 +22,9 @@ export default function LogoutButton() {
     <button
       onClick={handleLogout}
       disabled={loading}
-      className="rounded-lg border border-white/15 px-4 py-2 font-medium text-slate-200 transition hover:bg-white/5 disabled:opacity-60"
+      className="rounded-lg border border-line-2 px-4 py-2 font-medium text-muted transition hover:bg-hover disabled:opacity-60"
     >
-      {loading ? "Saliendo…" : "Salir"}
+      {loading ? t.loggingOut : t.logout}
     </button>
   );
 }
